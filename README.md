@@ -13,7 +13,7 @@
 
 ## 🗺️ Diagrama de Topología
 
-![Topología de Red]()
+![Topología de Red](https://raw.githubusercontent.com/labcruzmesson-cyber/Fortigate-Infraestructura-3/refs/heads/main/IMAGES/Screenshot%202026-10-02%20191058.png)
 
 ## 1. Diseño de Direccionamiento IP y VLSM
 
