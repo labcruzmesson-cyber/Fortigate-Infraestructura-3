@@ -1,11 +1,5 @@
-# Seguridad de Redes - Infraestructura 3 (Práctica 2)
-
-![Status](https://img.shields.io/badge/Status-Completed-success)
-![Platform](https://img.shields.io/badge/Platforms-Cisco%20IOS%20%7C%20FortiOS-blue)
-![Topology](https://img.shields.io/badge/VPN-IPsec%20Site--to--Site-orange)
-
-Documentación técnica y memoria de configuración de la topología perimetral de red, implementación de VPN IPsec Site-to-Site heterogénea (Cisco VIOS y FortiGate), publicación de servicios DMZ vía Virtual IP (Port Forwarding) y resolución de restricciones de virtualización.
-
+# Seguridad de Redes - Infraestructura 3 
+# ENLACE HACIA VIDEO: https://youtu.be/zFtjhvQ1noc
 ---
 
 ## 📌 Datos Generales del Proyecto
@@ -19,36 +13,7 @@ Documentación técnica y memoria de configuración de la topología perimetral 
 
 ## 🗺️ Diagrama de Topología
 
-```text
-                 +-----------------------------------+
-                 |           ISP (Tránsito)          |
-                 |         192.168.145.0/24          |
-                 +-----------------+-----------------+
-                                   |
-                  +----------------+----------------+
-                  |                                 |
-           Gi0/1 (.150)                        port1 (.148)
-        +------------------+             +----------------------+
-        |    Cisco VIOS    |             |  FortiGate Firewall  |
-        +--------+---------+             +----------+-----------+
-            Gi0/0|                                  |port2 (.1)
-                 |                                  |
-              e0 |                                  |
-        +--------+---------+                        |
-        |   Switch Cisco   |                        |
-        +--------+---------+                        |
-            Gi0/1| (VLAN 10)                        |
-                 |                                  |
-              e0 |                                  |eth0 (.2)
-        +--------+---------+             +----------+-----------+
-        |   PC (Ubuntu)    |             | Servidor Web (Linux) |
-        |   10.25.68.12    |             |     10.25.89.2       |
-        +------------------+             +----------------------+
-          (Subred Clientes)                    (Zona DMZ)
-           10.25.68.0/25                      10.25.89.0/28
-```
-
----
+![Topología de Red]()
 
 ## 1. Diseño de Direccionamiento IP y VLSM
 
