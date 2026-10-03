@@ -1,0 +1,67 @@
+enable
+configure terminal
+hostname vIOS
+
+interface GigabitEthernet0/0
+ no shutdown
+exit
+
+interface GigabitEthernet0/0.10
+ encapsulation dot1Q 10
+ ip address 10.25.68.1 255.255.255.128
+ ip nat inside
+ no shutdown
+exit
+
+interface GigabitEthernet0/1
+ ip address 192.168.145.150 255.255.255.0
+ ip nat outside
+ no shutdown
+exit
+
+ip route 0.0.0.0 0.0.0.0 192.168.145.2
+
+ip dhcp excluded-address 10.25.68.1 10.25.68.10
+ip dhcp pool POOL_VLAN10
+ network 10.25.68.0 255.255.255.128
+ default-router 10.25.68.1
+ dns-server 8.8.8.8
+exit
+
+ip access-list extended VPN_TRAFFIC
+ permit ip 10.25.68.0 0.0.0.127 10.25.89.0 0.0.0.15
+exit
+
+ip access-list extended NO_NAT_ACL
+ deny ip 10.25.68.0 0.0.0.127 10.25.89.0 0.0.0.15
+ permit ip 10.25.68.0 0.0.0.127 any
+exit
+
+ip nat inside source list NO_NAT_ACL interface GigabitEthernet0/1 overload
+
+crypto isakmp policy 10
+ encr des
+ hash sha
+ authentication pre-share
+ group 2
+ lifetime 86400
+exit
+
+crypto isakmp key ClaveVPN2025 address 192.168.145.148
+
+crypto ipsec transform-set TS_VPN esp-des esp-sha-hmac
+ mode tunnel
+exit
+
+crypto map CMAP_FORTIGATE 10 ipsec-isakmp
+ set peer 192.168.145.148
+ set transform-set TS_VPN
+ match address VPN_TRAFFIC
+exit
+
+interface GigabitEthernet0/1
+ crypto map CMAP_FORTIGATE
+exit
+
+end
+write memory
